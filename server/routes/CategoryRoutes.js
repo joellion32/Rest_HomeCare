@@ -4,7 +4,14 @@ const { VerifyToken, Verify_Admin_Role } = require('../middlewares/authenticatio
 
 const app = express();
 
+
+
 /**------------------------------REQUEST USER-------------------------------- */
+app.get('/', (req, res) => {
+    res.send('Hola Mundo')
+});
+
+
 app.get('/get/categories', (req, res) => {
 let page = req.query.page || 0;
 page = Number(page);
