@@ -2,8 +2,10 @@
   "name": "api-home-care",
   "version": "1.0.0",
   "description": "Api HomeCare App",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
+    "start": "node server/app.js",
+    "restart": "node server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
