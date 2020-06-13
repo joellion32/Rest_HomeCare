@@ -9,6 +9,10 @@ name_category:{
 type: String,
 required: [true, 'category is required'],
 unique: true   
+},
+icon: {
+type: String,
+required: false,
 }
 });
 

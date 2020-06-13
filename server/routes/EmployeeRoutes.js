@@ -1,5 +1,6 @@
 const express = require('express');
 const Employee = require('../models/EmployeeModel');
+const profession = require('../models/ProfessionsModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { VerifyToken, Verify_Admin_Role } = require('../middlewares/authentication');
@@ -110,6 +111,40 @@ app.get('/employees/all', [VerifyToken], (req, res) => {
                 });
             }
         });
+});
+
+// search Employees for professions
+app.get('/search/employee/:query', (req, res) => {
+    
+    let params = req.params.query;
+    let page = req.query.page || 0;
+    page = Number(page);
+
+    Employee.find({profession: params})
+    .skip(page)
+    .limit(10)
+    .exec((err, UserDB) => {
+      if(err){
+          return res.status(500).json({
+            ok: false,
+            err: err,
+          });
+      }
+      
+      if(!UserDB){
+          return res.status(400).json({
+            ok: false,
+            message: 'this user not exist'
+          });
+      }
+
+      res.json({
+        ok: true,
+        user: UserDB  
+      })
+    });
+
+
 });
 
 

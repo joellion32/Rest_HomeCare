@@ -10,14 +10,14 @@ const app = express();
 /*-----------------------------------------------REQUEST USER-------------------------------*/
 
 // view all professions
-app.get('/professions/all', [VerifyToken], (req, res) => {
+app.get('/professions/all', (req, res) => {
     let page = req.query.page || 0;
     page = Number(page);
 
 
     Professions.find({})
         .populate('category_id', 'name_category')
-        .limit(20)
+        .limit(10)
         .skip(page)
         .exec((err, professionDB) => {
             if (err) {
@@ -69,6 +69,39 @@ app.get('/search/professions/:query', (req, res) => {
             });
         });
 
+});
+
+
+// view professions for id
+app.get('/professions/view/:id', (req, res) => {
+let id = req.params.id;
+let page = req.query.page || 0;
+page = Number(page);
+
+Professions.find({category_id: id})
+.exec((err, professionDB) => {
+ if(err){
+     return res.status(500).json({
+         ok: false,
+         error: err,
+         message: 'An error ocurred'     
+    });
+ }
+
+ if(!professionDB){
+    return res.status(400).json({
+        ok: false,
+        error: err,
+        message: 'Profession not exist'     
+   });
+ }
+
+ res.json({
+    ok: true,
+    profession: professionDB
+ });
+
+});
 });
 
 

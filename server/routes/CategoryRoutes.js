@@ -6,7 +6,12 @@ const app = express();
 
 /**------------------------------REQUEST USER-------------------------------- */
 app.get('/get/categories', (req, res) => {
+let page = req.query.page || 0;
+page = Number(page);
+
     CategoryModel.find({})
+        .limit(10)
+        .skip(page)
         .exec((err, categoryDB) => {
             if (err) {
                 return res.status(500).json({

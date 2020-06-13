@@ -10,6 +10,7 @@ const SuscriptionsRoutes = require('../server/routes/SuscriptionsRoutes')
 const ProfessionRoutes = require('../server/routes/ProfessionRoutes')
 const CategoryRoutes =  require('../server/routes/CategoryRoutes')
 const mongoose = require('mongoose');
+const cors = require('cors')
 
 // variables
 const app = express()
@@ -21,7 +22,7 @@ const port = process.env.PORT;
 app.use(express.static(path.resolve(__dirname, '../public')));
 
 // connect BD
-mongoose.connect(process.env.URLDB, (err, res) => {
+mongoose.connect(process.env.URLDB, {useNewUrlParser: true, useCreateIndex: true}, (err, res) => {
 
     if (err) throw err;
 
@@ -35,6 +36,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+
+// use cors
+app.use(cors({origin: true, credentials: true}));
 
 // routes 
 app.use(ClientRoutes);
