@@ -14,7 +14,7 @@ if(process.env.NODE_ENV === 'dev'){
     UrlDB = "mongodb+srv://joellion32:joellion32@cluster0-ix6qp.mongodb.net/home-care?retryWrites=true&w=majority";
 }
 
-process.env.URLDB = UrlDB;
+process.env.MONGO_URI = UrlDB;
 
 
 // SEED TOKEN 
