@@ -40,6 +40,12 @@ app.use(bodyParser.json())
 // use cors
 app.use(cors({origin: true, credentials: true}));
 
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.log('Unhandled Rejection at:', promise, 'reason:', reason);
+    // Application specific logging, throwing an error, or other logic here
+  });
+
 // routes 
 app.use(ClientRoutes);
 app.use(EmployeeRoutes);
