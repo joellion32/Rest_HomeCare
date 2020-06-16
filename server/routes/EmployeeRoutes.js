@@ -20,6 +20,7 @@ let body = req.body;
         telephone: body.telephone,
         country: body.country,
         city: body.city,
+        zip_code: body.zip_code,
         location: body.location,
         profession: body.profession,
         description: body.description,

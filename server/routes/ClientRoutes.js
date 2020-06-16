@@ -18,6 +18,8 @@ app.post('/clients/register', (req, res) => {
     password: bcrypt.hashSync(body.password, 10),
     country: body.country,
     city: body.city,
+    zip_code: body.zip_code,
+    location: body.location,
     status: true,
     date_of_register: new Date()
   });
