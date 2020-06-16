@@ -38,6 +38,10 @@ city: {
 type: String,
 required: [true, 'your city is required']   
 },
+zip_code: {
+type: Number,
+required: false
+},
 location: {
 type: String,
 required: false
