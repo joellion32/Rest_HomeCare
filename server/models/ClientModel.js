@@ -27,7 +27,7 @@ type: String,
 required: [true, 'your city is required']    
 },
 zip_code: {
-type: Number,
+type: String,
 required: false
 },
 location: {
