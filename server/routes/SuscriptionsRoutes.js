@@ -30,7 +30,8 @@ app.post('/save/suscription', [VerifyToken, Verify_Admin_Role], (req, res) => {
 
     let suscription = new Suscriptions({
         suscription: body.suscription,
-        price: body.price
+        price: body.price,
+        description: body.description
     });
 
     suscription.save((err, suscriptionDB) => {

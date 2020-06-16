@@ -12,7 +12,11 @@ enum: ['BASIC', 'MEDIUM', 'PLUS']
 price: {
 type: Number,
 required: false    
-}    
+},
+description: {
+type: String,
+required: false    
+}   
 });
 
 
