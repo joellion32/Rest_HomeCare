@@ -10,7 +10,7 @@ const app = express();
 
 // register employee
 app.post('/employee/register', (req, res) => {
-let body = req.body;
+    let body = req.body;
 
 
     let user = new Employee({
@@ -116,37 +116,74 @@ app.get('/employees/all', [VerifyToken], (req, res) => {
 
 // search Employees for professions
 app.get('/search/employee/:query', (req, res) => {
-    
+
     let params = req.params.query;
     let page = req.query.page || 0;
     page = Number(page);
 
-    Employee.find({profession: params})
-    .skip(page)
-    .limit(10)
-    .exec((err, UserDB) => {
-      if(err){
-          return res.status(500).json({
-            ok: false,
-            err: err,
-          });
-      }
-      
-      if(!UserDB){
-          return res.status(400).json({
-            ok: false,
-            message: 'this user not exist'
-          });
-      }
+    Employee.find({ profession: params })
+        .skip(page)
+        .limit(10)
+        .exec((err, UserDB) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    err: err,
+                });
+            }
 
-      res.json({
-        ok: true,
-        user: UserDB  
-      })
-    });
+            if (!UserDB) {
+                return res.status(400).json({
+                    ok: false,
+                    message: 'this user not exist'
+                });
+            }
+
+            res.json({
+                ok: true,
+                user: UserDB
+            })
+        });
 
 
 });
+
+
+// search employes for zip code 
+app.get('/employee/search/:query', (req, res) => {
+    let query = req.params.query;
+    let page = req.query.page || 0;
+    page = Number(page);
+
+    Employee.find({ zip_code: query })
+        .skip(page)
+        .limit(10)
+        .exec((err, employeeDB) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    error: err,
+                    message: 'An error ocurred'
+                });
+            }
+
+            if (!employeeDB) {
+                return res.status(400).json({
+                    ok: false,
+                    message: 'there are no services for this location'
+                });
+            }
+
+            res.json({
+                ok: true,
+                employees: employeeDB
+            });
+
+        });
+
+
+}); // close function
+
 
 
 // view employee for id
@@ -211,32 +248,32 @@ app.put('/employee/update/:id', [VerifyToken], (req, res) => {
 
 
 // delete employee 
-app.delete('/employee/delete/:id',[VerifyToken],(req, res) => {
-let id = req.params.id;
+app.delete('/employee/delete/:id', [VerifyToken], (req, res) => {
+    let id = req.params.id;
 
-Employee.findByIdAndUpdate(id, {status: false}, {new: true}, (err, UserDB) => {
-    if(err){
-        return res.status.json({
-          ok: false,
-          message: 'An error ocurred',
-          error: err
-        });  
-      }
-      
-      
-      if (!UserDB) {
-          return res.status(400).json({
-              ok: false,
-              message: 'The user not exist'
-          });
-      }
-      
-      
-      res.json({
-      ok: true,
-      user: UserDB
-      });
-})
+    Employee.findByIdAndUpdate(id, { status: false }, { new: true }, (err, UserDB) => {
+        if (err) {
+            return res.status.json({
+                ok: false,
+                message: 'An error ocurred',
+                error: err
+            });
+        }
+
+
+        if (!UserDB) {
+            return res.status(400).json({
+                ok: false,
+                message: 'The user not exist'
+            });
+        }
+
+
+        res.json({
+            ok: true,
+            user: UserDB
+        });
+    })
 });
 
 /**********-------------------------------------ADMINISTRATOR-------------------------------------- */
@@ -244,7 +281,7 @@ Employee.findByIdAndUpdate(id, {status: false}, {new: true}, (err, UserDB) => {
 
 // view delete user
 // view all Employees
-app.get('/employees/deletes', [VerifyToken,  Verify_Admin_Role], (req, res) => {
+app.get('/employees/deletes', [VerifyToken, Verify_Admin_Role], (req, res) => {
     let page = req.query.page || 0;
     page = Number(page);
 
