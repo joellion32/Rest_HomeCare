@@ -16,6 +16,10 @@ required: false
 category_id: {
 type: Schema.Types.ObjectId, ref: 'Categories',
 required: [true, 'category is required']
+},
+icon: {
+type: String,
+required: false,
 }
 });
 

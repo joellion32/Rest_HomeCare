@@ -114,7 +114,8 @@ app.post('/professions/save', [VerifyToken, Verify_Admin_Role], (req, res) => {
     let profession = new Professions({
         name_profession: body.name_profession,
         description: body.description,
-        category_id: body.category_id
+        category_id: body.category_id,
+        icon: body.icon
     });
 
 
