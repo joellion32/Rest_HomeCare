@@ -43,7 +43,8 @@ type: Number
 status: {
 type: Boolean,
 default: false   
-}
+},
+
 });
 
 // not seed password
