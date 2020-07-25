@@ -91,7 +91,7 @@ app.post('/employee/login', (req, res) => {
 });
 
 // view all Employees
-app.get('/employees/all', [VerifyToken], (req, res) => {
+app.get('/employees/all', [VerifyToken, Verify_Admin_Role], (req, res) => {
     let page = req.query.page || 0;
     page = Number(page);
 
@@ -115,13 +115,15 @@ app.get('/employees/all', [VerifyToken], (req, res) => {
 });
 
 // search Employees for professions
-app.get('/search/employee/:query', (req, res) => {
+app.get('/search/employee/:query/:location', (req, res) => {
 
     let params = req.params.query;
+    let location = req.params.location;
+
     let page = req.query.page || 0;
     page = Number(page);
 
-    Employee.find({ profession: params })
+    Employee.find({ profession: params, city: location })
         .skip(page)
         .limit(10)
         .exec((err, UserDB) => {
