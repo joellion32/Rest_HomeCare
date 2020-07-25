@@ -10,6 +10,7 @@ const SuscriptionsRoutes = require('../server/routes/SuscriptionsRoutes')
 const ProfessionRoutes = require('../server/routes/ProfessionRoutes')
 const CategoryRoutes =  require('../server/routes/CategoryRoutes')
 const CountryRoutes =  require('../server/routes/CountryRoutes')
+const TokenRoutes =  require('../server/routes/TokenRoutes')
 
 const mongoose = require('mongoose');
 const cors = require('cors')
@@ -56,5 +57,6 @@ app.use(SuscriptionsRoutes);
 app.use(ProfessionRoutes);
 app.use(CategoryRoutes);
 app.use(CountryRoutes);
+app.use(TokenRoutes);
 
 app.listen(port, () => console.log(`Example app listening on port port: ${port}!`))

@@ -7,11 +7,6 @@ const app = express();
 
 
 /**------------------------------REQUEST USER-------------------------------- */
-app.get('/', (req, res) => {
-    res.send('Hola Mundo')
-});
-
-
 app.get('/get/categories', (req, res) => {
 let page = req.query.page || 0;
 page = Number(page);
