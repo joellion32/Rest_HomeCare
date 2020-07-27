@@ -191,7 +191,7 @@ app.get('/search_z/employee/:service/:zip_code', (req, res) => {
 
 
 // view employee for id
-app.get('/employee/view/:id', [VerifyToken], (req, res) => {
+app.get('/employee/view/:id', (req, res) => {
     let id = req.params.id;
 
 
