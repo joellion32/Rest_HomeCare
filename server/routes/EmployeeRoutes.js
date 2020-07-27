@@ -25,7 +25,7 @@ app.post('/employee/register', (req, res) => {
         profession: body.profession,
         description: body.description,
         id_suscription: body.id_suscription,
-        status: true
+        status: false
     });
 
     user.save((err, UserDB) => {
@@ -114,8 +114,8 @@ app.get('/employees/all', [VerifyToken, Verify_Admin_Role], (req, res) => {
         });
 });
 
-// search Employees for professions
-app.get('/search/employee/:query/:location', (req, res) => {
+// search Employees by professions and city
+app.get('/search_c/employee/:query/:location', (req, res) => {
 
     let params = req.params.query;
     let location = req.params.location;
@@ -123,7 +123,7 @@ app.get('/search/employee/:query/:location', (req, res) => {
     let page = req.query.page || 0;
     page = Number(page);
 
-    Employee.find({ profession: params, city: location })
+    Employee.find({ profession: params, city: location, status: true })
         .skip(page)
         .limit(10)
         .exec((err, UserDB) => {
@@ -151,13 +151,15 @@ app.get('/search/employee/:query/:location', (req, res) => {
 });
 
 
-// search employes for zip code 
-app.get('/employee/search/:query', (req, res) => {
-    let query = req.params.query;
+// search employes by zip code 
+app.get('/search_z/employee/:service/:zip_code', (req, res) => {
+   
+    let service = req.params.service;
+    let zip = req.params.zip_code;
     let page = req.query.page || 0;
     page = Number(page);
 
-    Employee.find({ zip_code: query })
+    Employee.find({ profession: service, zip_code: zip })
         .skip(page)
         .limit(10)
         .exec((err, employeeDB) => {
