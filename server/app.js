@@ -11,9 +11,10 @@ const ProfessionRoutes = require('../server/routes/ProfessionRoutes')
 const CategoryRoutes =  require('../server/routes/CategoryRoutes')
 const CountryRoutes =  require('../server/routes/CountryRoutes')
 const TokenRoutes =  require('../server/routes/TokenRoutes')
+const JobsRoutes =  require('../server/routes/JobsRoutes')
 
 const mongoose = require('mongoose');
-const cors = require('cors')
+const cors = require('cors');
 
 // variables
 const app = express()
@@ -47,7 +48,7 @@ app.use(cors({origin: true, credentials: true}));
 process.on('unhandledRejection', (reason, promise) => {
     console.log('Unhandled Rejection at:', promise, 'reason:', reason);
     // Application specific logging, throwing an error, or other logic here
-  });
+});
 
 // routes 
 app.use(ClientRoutes);
@@ -58,5 +59,6 @@ app.use(ProfessionRoutes);
 app.use(CategoryRoutes);
 app.use(CountryRoutes);
 app.use(TokenRoutes);
+app.use(JobsRoutes);
 
 app.listen(port, () => console.log(`Example app listening on port port: ${port}!`))

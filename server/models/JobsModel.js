@@ -6,11 +6,11 @@ let Schema = moongose.Schema;
 
 let JobsSchema = new Schema({
 client_id: {
-type: String,
-required: true    
+type: Schema.Types.ObjectId, ref: 'Clients',
+required: true   
 },
 employe_id: {
-type: String,
+type: Schema.Types.ObjectId, ref: 'Employees',
 required: true       
 },
 title: {
@@ -18,16 +18,16 @@ type: String,
 required: [true, 'Specific your service']    
 },
 description: {
-type: Text,
+type: String,
 required: [true, 'Specific your service']    
 },
 date_of_solicited: {
 type: Date,
-default: new Date().getDate()
+default: new Date()
 },
 status:{
-type: Boolean,
-default: false    
+type: String,
+enum: ['PENDING', 'CANCELLED', 'COMPLETED']       
 }
 });
 
