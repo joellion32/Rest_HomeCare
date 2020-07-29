@@ -151,6 +151,14 @@ app.get('/cancel/jobs/:id', [VerifyToken], (req, res) => {
                 });
             }
 
+            if(!JobsDB){
+                return res.status(400).json({
+                    ok: true,
+                    message: 'The job not exist',
+                    error: err
+                }); 
+            }
+
             res.json({
                 ok: true,
                 message: 'Job cancelled',
