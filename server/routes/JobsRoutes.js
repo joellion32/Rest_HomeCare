@@ -101,6 +101,14 @@ app.get('/view/jobs/:id', (req, res) => {
                     error: err
                 })
             }
+
+            if(!JobsDB){
+                return res.status(400).json({
+                    ok: false,
+                    message: 'The job not exist',
+                }); 
+            }
+            
             res.json({
                 ok: true,
                 jobs: JobsDB
@@ -153,9 +161,8 @@ app.get('/cancel/jobs/:id', [VerifyToken], (req, res) => {
 
             if(!JobsDB){
                 return res.status(400).json({
-                    ok: true,
+                    ok: false,
                     message: 'The job not exist',
-                    error: err
                 }); 
             }
 
