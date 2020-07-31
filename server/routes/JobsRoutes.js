@@ -125,6 +125,7 @@ app.post('/jobs/save', [VerifyToken], (req, res) => {
         employe_id: body.employe_id,
         title: body.title,
         description: body.description,
+        location: body.location,
         date_of_solicited: new Date().getDate(),
         status: 'PENDING'
     });

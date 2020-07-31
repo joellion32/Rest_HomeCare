@@ -21,6 +21,10 @@ description: {
 type: String,
 required: [true, 'Specific your service']    
 },
+location: {
+type: String, 
+required: [true, 'Specific your location']
+},
 date_of_solicited: {
 type: Date,
 default: new Date()
