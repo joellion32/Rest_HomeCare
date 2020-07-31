@@ -40,7 +40,7 @@ app.get('/clients/jobs/:id', [VerifyToken], (req, res) => {
     page = Number(page);
 
     Jobs.find({ client_id: client_id })
-        .populate('employe_id', 'name')
+        .populate('employe_id')
         .skip(page)
         .limit(10)
         .exec((err, JobsDB) => {
@@ -67,7 +67,7 @@ app.get('/employees/jobs/:id', (req, res) => {
     page = Number(page);
 
     Jobs.find({ employe_id: employe_id })
-        .populate('client_id', 'name')
+        .populate('client_id')
         .skip(page)
         .limit(10)
         .exec((err, JobsDB) => {
@@ -91,8 +91,8 @@ app.get('/employees/jobs/:id', (req, res) => {
 app.get('/view/jobs/:id', (req, res) => {
     let id = req.params.id;
     Jobs.findById(id)
-        .populate('client_id', 'name')
-        .populate('employe_id', 'name')
+        .populate('client_id')
+        .populate('employe_id')
         .exec((err, JobsDB) => {
             if (err) {
                 return res.status(500).json({
