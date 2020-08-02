@@ -6,11 +6,12 @@ const Jobs = require('../models/JobsModel');
 
 
 // request all jobs 
-app.get('/get/jobs/', [VerifyToken, Verify_Admin_Role], (req, res) => {
+app.get('/get/jobs/:status', [VerifyToken, Verify_Admin_Role], (req, res) => {
     let page = req.query.page || 0;
+    let status = req.params.status;
     page = Number(page);
 
-    Jobs.find({})
+    Jobs.find({status: status})
         .populate('employe_id', 'name')
         .populate('client_id', 'name')
         .skip(page)
@@ -33,13 +34,13 @@ app.get('/get/jobs/', [VerifyToken, Verify_Admin_Role], (req, res) => {
 
 
 // request all jobs by client_id 
-app.get('/clients/jobs/:id', [VerifyToken], (req, res) => {
+app.get('/clients/jobs/:id/:status', [VerifyToken], (req, res) => {
     let page = req.query.page || 0;
     let client_id = req.params.id;
-
+    let status = req.params.status;
     page = Number(page);
 
-    Jobs.find({ client_id: client_id })
+    Jobs.find({ client_id: client_id, status: status })
         .populate('employe_id')
         .skip(page)
         .limit(10)
@@ -63,10 +64,11 @@ app.get('/clients/jobs/:id', [VerifyToken], (req, res) => {
 app.get('/employees/jobs/:id', (req, res) => {
     let page = req.query.page || 0;
     let employe_id = req.params.id;
+    let status = req.params.status;
 
     page = Number(page);
 
-    Jobs.find({ employe_id: employe_id })
+    Jobs.find({ employe_id: employe_id, status: status })
         .populate('client_id')
         .skip(page)
         .limit(10)
