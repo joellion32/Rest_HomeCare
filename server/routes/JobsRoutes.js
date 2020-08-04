@@ -72,7 +72,7 @@ app.get('/employees/jobs/:id', (req, res) => {
     Jobs.find({ employe_id: employe_id, status: status })
         .populate('client_id')
         .skip(page)
-        .limit(10)
+        .limit(50)
         .sort({date_of_solicited: -1})
         .exec((err, JobsDB) => {
             if (err) {
