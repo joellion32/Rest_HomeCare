@@ -44,6 +44,7 @@ app.get('/clients/jobs/:id/:status', [VerifyToken], (req, res) => {
         .populate('employe_id')
         .skip(page)
         .limit(10)
+        .sort({date_of_solicited: -1})
         .exec((err, JobsDB) => {
             if (err) {
                 return res.status(500).json({
@@ -72,6 +73,7 @@ app.get('/employees/jobs/:id', (req, res) => {
         .populate('client_id')
         .skip(page)
         .limit(10)
+        .sort({date_of_solicited: -1})
         .exec((err, JobsDB) => {
             if (err) {
                 return res.status(500).json({
@@ -128,7 +130,6 @@ app.post('/jobs/save', [VerifyToken], (req, res) => {
         title: body.title,
         description: body.description,
         location: body.location,
-        date_of_solicited: new Date().getDate(),
         status: 'PENDING'
     });
 
