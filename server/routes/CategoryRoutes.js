@@ -7,8 +7,28 @@ const app = express();
 
 
 /**------------------------------REQUEST USER-------------------------------- */
-app.get('/get/categories', (req, res) => {
+// popular categories
+app.get('/popular/categories', (req, res) => {
+    CategoryModel.find({})
+        .limit(5)
+        .exec((err, categoryDB) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    message: 'An error ocurred'
+                });
+            } else {
+                res.json({
+                    ok: true,
+                    categories: categoryDB
+                });
+            }
+        });
+});
 
+
+// get all categories
+app.get('/get/categories', (req, res) => {
     CategoryModel.find({})
         .exec((err, categoryDB) => {
             if (err) {
